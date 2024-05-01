@@ -1,0 +1,50 @@
+{
+  "logs": [
+    {
+      "id": 2,
+      "message": "Hard drive fixed",
+      "attention": false,
+      "tech": "John Doe",
+      "date": "2021-11-05T14:52:59.661Z"
+    },
+    {
+      "id": 3,
+      "message": "Hardware installed",
+      "attention": false,
+      "tech": "Sam Smith",
+      "date": "2021-11-05T14:51:27.931Z"
+    }
+  ],
+  "techs": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe"
+    },
+    {
+      "id": 2,
+      "firstName": "Sam",
+      "lastName": "Smith"
+    },
+    {
+      "id": 3,
+      "firstName": "Sara",
+      "lastName": "Wilson"
+    },
+    {
+      "id": 4,
+      "firstName": "Thomas",
+      "lastName": "Neos"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Harisson",
+      "id": 5
+    },
+    {
+      "firstName": "Sally",
+      "lastName": "Wilson",
+      "id": 6
+    }
+  ]
+}
