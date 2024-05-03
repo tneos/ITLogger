@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "json-server": "json-server --watch db.json --port 5000",
-    "dev": "concurrently vite npm:json-server",
+    "dev": "concurrently npm:json-server vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
+  "proxy": "http://127.0.0.1:5000",
   "dependencies": {
     "axios": "^1.6.8",
     "materialize-css": "^1.0.0",
@@ -27,6 +28,5 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "json-server": "^0.17.4",
     "vite": "^5.2.0"
-  },
-  "proxy": "http://localhost:5000/"
+  }
 }

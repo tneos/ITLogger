@@ -6,11 +6,9 @@ const Logs = () => {
 
   const getLogs = async () => {
     setLoading(true);
-    const res = await fetch("http://localhost:5000/logs");
+    const res = await fetch("/logs");
     console.log(res);
     const data = await res.json();
-
-    console.log(data);
     setLogs(data);
     setLoading(false);
   };
