@@ -10,7 +10,7 @@
     {
       "id": 3,
       "message": "Hardware installed",
-      "attention": false,
+      "attention": true,
       "tech": "Sam Smith",
       "date": "2021-11-05T14:51:27.931Z"
     }
