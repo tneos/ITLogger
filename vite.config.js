@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/logs": "http://localhost:5000",
+      "/techs": "http://localhost:5000",
     },
   },
   plugins: [react()],

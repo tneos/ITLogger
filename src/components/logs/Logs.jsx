@@ -10,7 +10,7 @@ const Logs = () => {
   const getLogs = async () => {
     setLoading(true);
     const res = await fetch("/logs");
-    console.log(res);
+    console.log(res.body);
     const data = await res.json();
     setLogs(data);
     setLoading(false);
