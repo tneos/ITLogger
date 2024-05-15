@@ -50,6 +50,13 @@ export const updateLog = createAsyncThunk("logs/updateLog", async log => {
   return jsonData;
 });
 
+// Search logs
+export const searchLogs = createAsyncThunk("logs/searchLogs", async text => {
+  const response = await fetch(`/logs?q=${text}`);
+  const jsonData = await response.json();
+  return jsonData;
+});
+
 export const logSlice = createSlice({
   name: "log",
   initialState,
@@ -82,7 +89,7 @@ export const logSlice = createSlice({
         state.loading = false;
         state.logs.push(payload);
       })
-      .addCase(addLog.rejected, state => {
+      .addCase(addLog.rejected, (state, action) => {
         state.error = action.error.message;
       });
     builder
@@ -90,7 +97,7 @@ export const logSlice = createSlice({
         state.loading = false;
         state.logs = state.logs.filter(log => log.id !== payload);
       })
-      .addCase(deleteLog.rejected, state => {
+      .addCase(deleteLog.rejected, (state, action) => {
         state.error = action.error.message;
       });
     builder
@@ -98,9 +105,13 @@ export const logSlice = createSlice({
         state.loading = false;
         state.logs = state.logs.map(log => (log.id === payload.id ? payload : log));
       })
-      .addCase(updateLog.rejected, state => {
+      .addCase(updateLog.rejected, (state, action) => {
         state.error = action.error.message;
       });
+    builder.addCase(searchLogs.fulfilled, (state, {payload}) => {
+      state.loading = false;
+      state.logs = payload;
+    });
   },
 });
 
