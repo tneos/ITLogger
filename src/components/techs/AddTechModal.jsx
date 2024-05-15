@@ -1,7 +1,11 @@
 import React, {useState} from "react";
+import {useDispatch} from "react-redux";
+import {addTech} from "../../state/tech/techSlice";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 const AddTechModal = () => {
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -9,7 +13,12 @@ const AddTechModal = () => {
     if (firstName === "" || lastName === "") {
       M.toast({html: "Please enter your first and last name"});
     } else {
-      console.log(firstName, lastName);
+      const newTech = {
+        firstName,
+        lastName,
+      };
+      dispatch(addTech(newTech));
+      M.toast({html: `${firstName} ${lastName} was added on the list`});
     }
 
     // Clear fields
