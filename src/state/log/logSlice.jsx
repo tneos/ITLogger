@@ -79,7 +79,7 @@ export const logSlice = createSlice({
       })
       .addCase(getLogs.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
+        state.error = action.error.statusText;
       });
     builder
       .addCase(addLog.pending, state => {
@@ -90,7 +90,7 @@ export const logSlice = createSlice({
         state.logs.push(payload);
       })
       .addCase(addLog.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.error = action.error.statusText;
       });
     builder
       .addCase(deleteLog.fulfilled, (state, {payload}) => {
@@ -98,7 +98,7 @@ export const logSlice = createSlice({
         state.logs = state.logs.filter(log => log.id !== payload);
       })
       .addCase(deleteLog.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.error = action.error.statusText;
       });
     builder
       .addCase(updateLog.fulfilled, (state, {payload}) => {
@@ -106,7 +106,7 @@ export const logSlice = createSlice({
         state.logs = state.logs.map(log => (log.id === payload.id ? payload : log));
       })
       .addCase(updateLog.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.error = action.error.statusText;
       });
     builder.addCase(searchLogs.fulfilled, (state, {payload}) => {
       state.loading = false;

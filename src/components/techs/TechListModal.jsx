@@ -1,21 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import TechItem from "./TechItem";
+import {getTechs} from "../../state/tech/techSlice";
 
 const TechListModal = () => {
-  const [techs, setTechs] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  // Fetch array of logs and set component state when app loads
-  const getTechs = async () => {
-    setLoading(true);
-    const res = await fetch("/techs");
-    const data = await res.json();
-    setTechs(data);
-    setLoading(false);
-  };
+  const dispatch = useDispatch();
+  const {techs, loading} = useSelector(state => state.tech);
 
   useEffect(() => {
-    getTechs();
+    dispatch(getTechs());
     // eslint-disable-next-line
   }, []);
 
