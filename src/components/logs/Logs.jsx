@@ -8,12 +8,12 @@ const Logs = () => {
   const dispatch = useDispatch();
   const {logs, loading} = useSelector(state => state.log);
 
+  console.log(logs);
+
   useEffect(() => {
     dispatch(getLogs());
     // eslint-disable-next-line
-  }, [dispatch]);
-
-  console.log(logs);
+  }, []);
 
   if (loading) {
     return <Preloader />;

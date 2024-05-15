@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {addLog} from "../../state/log/logSlice";
 import M from "materialize-css/dist/js/materialize.min.js";
 
@@ -21,6 +21,8 @@ const AddLogModal = () => {
       };
 
       dispatch(addLog(newLog));
+
+      M.toast({html: `Log added by ${tech}`});
     }
 
     // Clear fields

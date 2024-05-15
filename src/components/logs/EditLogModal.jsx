@@ -1,16 +1,38 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import M from "materialize-css/dist/js/materialize.min.js";
+import {updateLog} from "../../state/log/logSlice";
 
 const EditLogModal = () => {
+  const dispatch = useDispatch();
+  const {current} = useSelector(state => state.log);
+
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState("");
+
+  useEffect(() => {
+    if (current) {
+      setMessage(current.message);
+      setAttention(current.attention);
+      setTech(current.tech);
+    }
+  }, [current]);
 
   const onSubmit = () => {
     if (message === "" || tech === "") {
       M.toast({html: "Please enter technician's name and a message"});
     } else {
-      console.log(message, tech, attention);
+      const updLog = {
+        id: current.id,
+        message,
+        attention,
+        tech,
+        date: new Date(),
+      };
+
+      dispatch(updateLog(updLog));
+      M.toast({html: `Log updated by ${tech}`});
     }
 
     // Clear fields

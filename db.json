@@ -8,18 +8,18 @@
       "date": "2021-11-05T14:52:59.661Z"
     },
     {
-      "id": 3,
-      "message": "Hardware installed",
-      "attention": true,
-      "tech": "Sam Smith",
-      "date": "2021-11-05T14:51:27.931Z"
-    },
-    {
       "message": "Changed network card on server 007",
       "attention": false,
       "tech": "Nick Macdonald",
       "date": "2024-05-15T10:11:59.879Z",
       "id": 4
+    },
+    {
+      "id": 5,
+      "message": "Fixed network card",
+      "attention": false,
+      "tech": "Nick Macdonald",
+      "date": "2024-05-15T11:43:10.505Z"
     }
   ],
   "techs": [
