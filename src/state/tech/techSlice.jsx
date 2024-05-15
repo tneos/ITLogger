@@ -28,7 +28,7 @@ export const addTech = createAsyncThunk("techs/addTech", async tech => {
 
 // Delete technician from server
 export const deleteTech = createAsyncThunk("techs/deleteTech", async id => {
-  await fetch("/techs", {
+  await fetch(`/techs/${id}`, {
     method: "DELETE",
   });
 
