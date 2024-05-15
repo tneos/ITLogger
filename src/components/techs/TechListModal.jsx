@@ -9,9 +9,7 @@ const TechListModal = () => {
   const getTechs = async () => {
     setLoading(true);
     const res = await fetch("/techs");
-    console.log(res.body);
     const data = await res.json();
-    console.log(data);
     setTechs(data);
     setLoading(false);
   };
@@ -20,8 +18,6 @@ const TechListModal = () => {
     getTechs();
     // eslint-disable-next-line
   }, []);
-
-  console.log(techs, loading);
 
   return (
     <div id="tech-list-modal" className="modal">
