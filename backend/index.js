@@ -1,6 +1,22 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const path = require("path");
 
 const app = express();
+
+dotenv.config({path: "./.env"});
+
+app.use(express.json({extended: false}));
+
+// data from req object is added to it(middleware)
+app.use(express.json());
+
+mongoose
+  .connect(process.env.DATABASE, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("DB connection successful!"));
 
 const PORT = process.env.PORT || 5000;
 
