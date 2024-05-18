@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const path = require("path");
 
 const app = express();
 
@@ -23,6 +22,10 @@ const PORT = process.env.PORT || 5000;
 app.get("/", (req, res) => {
   res.status(200).send("Testing server..");
 });
+
+// Define Routes
+app.use("/logs", require("./src/routes/logs"));
+app.use(`/techs`, require("./src/routes/techs"));
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
