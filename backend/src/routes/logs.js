@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const {check, validationResult} = require("express-validator");
 
-const Logs = require("../models/Logs");
+const Log = require("../models/Logs");
 
 // @desc    Get all logs
 router.get("/", async (req, res) => {
   try {
     // Get all logs
-    let logsData = await Logs.find({});
+    let logsData = await Log.find({});
 
     res.json({
       status: "success",
@@ -24,7 +25,6 @@ router.post(
   [
     check("message", "Please add message").not().isEmpty(),
     check("tech", "Please add tecnician's name").not().isEmpty(),
-    check("date", "Please add a valid date").isEmail(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -32,10 +32,11 @@ router.post(
       return res.status(400).json({errors: errors.array()});
     }
 
-    const {message, attention, tech, date} = req.body;
+    const {id, message, attention, tech, date} = req.body;
 
     try {
       let log = new Log({
+        id,
         message,
         attention,
         tech,
@@ -43,17 +44,56 @@ router.post(
       });
 
       await log.save();
-
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
+      res.json({
+        id,
+        message,
+        attention,
+        tech,
+        date,
+      });
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");
     }
   }
 );
+
+// @desc    Update log
+
+router.put("/:id", async (req, res) => {
+  console.log(req.params.id, req.body);
+  const doc = await Log.findByIdAndUpdate({_id: req.params.id}, req.body, {
+    new: true,
+  });
+
+  if (!doc) {
+    return next(new AppError("No document found with that ID", 404)); // return function immediately before it moves to next one
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      data: doc,
+    },
+  });
+});
+
+// @desc    Delete log
+
+router.delete("/:id", async (req, res) => {
+  const logId = req.params.id;
+
+  const deletedLog = await Log.findOneAndDelete({_id: logId});
+  console.log(deletedLog, logId);
+
+  if (!deletedLog) {
+    return next(new AppError("No log found with that ID", 404));
+  }
+
+  res.json({
+    status: "success",
+    data: null,
+  });
+});
 
 module.exports = router;

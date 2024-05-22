@@ -8,10 +8,11 @@ const Logs = () => {
   const dispatch = useDispatch();
   const {logs, loading} = useSelector(state => state.log);
 
-  console.log(logs);
+  console.log(logs, loading);
 
   useEffect(() => {
     dispatch(getLogs());
+
     // eslint-disable-next-line
   }, []);
 
@@ -27,7 +28,7 @@ const Logs = () => {
       {!loading && logs.length === 0 ? (
         <p className="center">No Logs to show..</p>
       ) : (
-        logs.map(log => <LogItem log={log} key={log.id} />)
+        logs.map(log => <LogItem log={log} key={log._id} />)
       )}
     </ul>
   );

@@ -11,11 +11,7 @@ app.use(express.json({extended: false}));
 // data from req object is added to it(middleware)
 app.use(express.json());
 
-mongoose
-  .connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-  })
-  .then(() => console.log("DB connection successful!"));
+mongoose.connect(process.env.DATABASE).then(() => console.log("DB connection successful!"));
 
 const PORT = process.env.PORT || 5000;
 

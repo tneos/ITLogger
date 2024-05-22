@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const LogsSchema = mongoose.Schema({
+  id: String,
   message: {
     type: String,
     required: [true, "A new log should contain a message"],
@@ -10,10 +11,7 @@ const LogsSchema = mongoose.Schema({
     type: String,
     required: [true, "A new log should contain technician's name"],
   },
-  date: {
-    type: String,
-    required: [true, "A new log should contain the date"],
-  },
+  date: Date,
 });
 
 module.exports = mongoose.model("Logs", LogsSchema);

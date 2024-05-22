@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 
 const initialState = {
-  logs: [],
+  logs: "",
   current: null,
   loading: false,
   error: null,
@@ -11,6 +11,7 @@ const initialState = {
 export const getLogs = createAsyncThunk("logs/getLogs", async () => {
   const response = await fetch("/logs");
   const jsonData = await response.json();
+  //console.log(jsonData);
   return jsonData;
 });
 
@@ -24,6 +25,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
     },
   });
   const jsonData = await response.json();
+  console.log(jsonData);
   return jsonData;
 });
 
@@ -38,7 +40,8 @@ export const deleteLog = createAsyncThunk("logs/deleteLog", async id => {
 
 // Update log on server
 export const updateLog = createAsyncThunk("logs/updateLog", async log => {
-  const response = await fetch(`/logs/${log.id}`, {
+  console.log(log._id);
+  const response = await fetch(`/logs/${log._id}`, {
     method: "PUT",
     body: JSON.stringify(log),
     headers: {
@@ -47,6 +50,7 @@ export const updateLog = createAsyncThunk("logs/updateLog", async log => {
   });
 
   const jsonData = await response.json();
+  // console.log(jsonData);
   return jsonData;
 });
 
@@ -75,7 +79,7 @@ export const logSlice = createSlice({
       })
       .addCase(getLogs.fulfilled, (state, action) => {
         state.loading = false;
-        state.logs = action.payload;
+        state.logs = action.payload.logsData;
       })
       .addCase(getLogs.rejected, (state, action) => {
         state.loading = false;
@@ -83,7 +87,7 @@ export const logSlice = createSlice({
       });
     builder
       .addCase(addLog.pending, state => {
-        state.isLoading = true;
+        state.loading = true;
       })
       .addCase(addLog.fulfilled, (state, {payload}) => {
         state.loading = false;
@@ -95,15 +99,18 @@ export const logSlice = createSlice({
     builder
       .addCase(deleteLog.fulfilled, (state, {payload}) => {
         state.loading = false;
-        state.logs = state.logs.filter(log => log.id !== payload);
+        state.logs = state.logs.filter(log => log._id !== payload);
       })
       .addCase(deleteLog.rejected, (state, action) => {
         state.error = action.error.statusText;
       });
     builder
       .addCase(updateLog.fulfilled, (state, {payload}) => {
+        console.log(payload.data);
         state.loading = false;
-        state.logs = state.logs.map(log => (log.id === payload.id ? payload : log));
+        state.logs = state.logs.map(log =>
+          log._id === payload.data.data._id ? payload.data.data : log
+        );
       })
       .addCase(updateLog.rejected, (state, action) => {
         state.error = action.error.statusText;

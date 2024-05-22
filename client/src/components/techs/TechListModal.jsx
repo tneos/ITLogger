@@ -6,6 +6,7 @@ import {getTechs} from "../../state/tech/techSlice";
 const TechListModal = () => {
   const dispatch = useDispatch();
   const {techs, loading} = useSelector(state => state.tech);
+  const {techsData} = techs;
 
   useEffect(() => {
     dispatch(getTechs());
@@ -17,7 +18,9 @@ const TechListModal = () => {
       <div className="modal-content">
         <h4>Technician List</h4>
         <ul className="collection">
-          {!loading && techs.map(tech => <TechItem tech={tech} key={tech.id} />)}
+          {!loading > 0 &&
+            techs.techsData &&
+            techsData.map(tech => <TechItem tech={tech} key={tech.id} />)}
         </ul>
       </div>
     </div>

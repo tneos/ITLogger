@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import TechSelectOptions from "../techs/TechSelectOptions";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {addLog} from "../../state/log/logSlice";
 import M from "materialize-css/dist/js/materialize.min.js";
 
 const AddLogModal = () => {
   const dispatch = useDispatch();
+  const {logs} = useSelector(state => state.log);
   const [message, setMessage] = useState("");
   const [attention, setAttention] = useState(false);
   const [tech, setTech] = useState("");
@@ -15,15 +16,18 @@ const AddLogModal = () => {
       M.toast({html: "Please enter technician's name and a message"});
     } else {
       const newLog = {
+        id: logs.length + 1,
         message,
         attention,
         tech,
         date: new Date(),
       };
 
+      // console.log(newLog);
+
       dispatch(addLog(newLog));
 
-      M.toast({html: `Log added by ${tech}`});
+      //M.toast({html: `Log added by ${tech}`});
     }
 
     // Clear fields
