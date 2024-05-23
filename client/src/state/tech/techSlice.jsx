@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 
 const initialState = {
-  techs: [],
+  techs: "",
   loading: false,
   error: null,
 };
@@ -46,7 +46,7 @@ export const techSlice = createSlice({
       })
       .addCase(getTechs.fulfilled, (state, action) => {
         state.loading = false;
-        state.techs = action.payload;
+        state.techs = action.payload.techsData;
       })
       .addCase(getTechs.rejected, (state, action) => {
         state.loading = false;
@@ -64,7 +64,7 @@ export const techSlice = createSlice({
     builder
       .addCase(deleteTech.fulfilled, (state, action) => {
         state.loading = false;
-        state.techs = state.techs.filter(tech => tech.id !== action.payload);
+        state.techs = state.techs.filter(tech => tech._id !== action.payload);
       })
       .addCase(deleteTech.rejected, (state, action) => {
         state.loading = false;

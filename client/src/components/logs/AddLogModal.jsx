@@ -23,11 +23,9 @@ const AddLogModal = () => {
         date: new Date(),
       };
 
-      // console.log(newLog);
-
       dispatch(addLog(newLog));
 
-      //M.toast({html: `Log added by ${tech}`});
+      M.toast({html: `Log added by ${tech}`});
     }
 
     // Clear fields

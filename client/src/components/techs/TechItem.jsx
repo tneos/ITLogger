@@ -3,11 +3,11 @@ import {deleteTech} from "../../state/tech/techSlice";
 import PropTypes from "prop-types";
 import M from "materialize-css/dist/js/materialize.min.js";
 
-const TechItem = ({tech: {id, firstName, lastName}}) => {
+const TechItem = ({tech: {_id, firstName, lastName}}) => {
   const dispatch = useDispatch();
 
   const onDelete = () => {
-    dispatch(deleteTech(id));
+    dispatch(deleteTech(_id));
     M.toast({html: "Technician deleted from the list"});
   };
 
