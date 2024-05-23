@@ -1,6 +1,6 @@
 import React, {useRef} from "react";
 import {useDispatch} from "react-redux";
-import {searchLogs} from "../../state/log/logSlice";
+import {searchLogs, getLogs} from "../../state/log/logSlice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
@@ -8,7 +8,14 @@ const SearchBar = () => {
 
   // Search action
   const onChange = e => {
+    console.log(text.current.value);
     dispatch(searchLogs(text.current.value));
+  };
+
+  // Clear input
+  const onClose = () => {
+    text.current.value = "";
+    dispatch(getLogs());
   };
 
   return (
@@ -26,7 +33,9 @@ const SearchBar = () => {
             <label className="label-icon" htmlFor="search">
               <i className="material-icons">search</i>
             </label>
-            <i className="material-icons">close</i>
+            <i className="material-icons" onClick={onClose}>
+              close
+            </i>
           </div>
         </form>
       </div>

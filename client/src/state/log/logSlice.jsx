@@ -117,7 +117,7 @@ export const logSlice = createSlice({
       });
     builder.addCase(searchLogs.fulfilled, (state, {payload}) => {
       state.loading = false;
-      state.logs = payload;
+      state.logs = payload.logsData;
     });
   },
 });

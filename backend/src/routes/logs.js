@@ -6,9 +6,22 @@ const Log = require("../models/Logs");
 
 // @desc    Get all logs
 router.get("/", async (req, res) => {
+  const query = req.query.q;
+  let logsData;
+
   try {
-    // Get all logs
-    let logsData = await Log.find({});
+    if (req.query.q) {
+      logsData = await Log.find({
+        $or: [
+          {
+            message: {$regex: query, $options: "i"},
+          },
+          {tech: {$regex: query, $options: "i"}},
+        ],
+      });
+    } else {
+      logsData = await Log.find({});
+    }
 
     res.json({
       status: "success",
@@ -62,6 +75,26 @@ router.post(
 
 router.put("/:id", async (req, res) => {
   console.log(req.params.id, req.body);
+  const doc = await Log.findByIdAndUpdate({_id: req.params.id}, req.body, {
+    new: true,
+  });
+
+  if (!doc) {
+    return next(new AppError("No document found with that ID", 404)); // return function immediately before it moves to next one
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      data: doc,
+    },
+  });
+});
+
+// @desc    Search log
+
+router.get("/", async (req, res) => {
+  console.log(req.query);
   const doc = await Log.findByIdAndUpdate({_id: req.params.id}, req.body, {
     new: true,
   });
