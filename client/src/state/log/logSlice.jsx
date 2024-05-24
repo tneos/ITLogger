@@ -11,7 +11,7 @@ const initialState = {
 export const getLogs = createAsyncThunk("logs/getLogs", async () => {
   const response = await fetch("/logs");
   const jsonData = await response.json();
-  //console.log(jsonData);
+
   return jsonData;
 });
 
@@ -25,7 +25,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
     },
   });
   const jsonData = await response.json();
-  console.log(jsonData);
+
   return jsonData;
 });
 
@@ -50,7 +50,7 @@ export const updateLog = createAsyncThunk("logs/updateLog", async log => {
   });
 
   const jsonData = await response.json();
-  // console.log(jsonData);
+
   return jsonData;
 });
 
@@ -106,7 +106,6 @@ export const logSlice = createSlice({
       });
     builder
       .addCase(updateLog.fulfilled, (state, {payload}) => {
-        console.log(payload.data);
         state.loading = false;
         state.logs = state.logs.map(log =>
           log._id === payload.data.data._id ? payload.data.data : log

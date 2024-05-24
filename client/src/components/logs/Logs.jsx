@@ -8,8 +8,6 @@ const Logs = () => {
   const dispatch = useDispatch();
   const {logs, loading} = useSelector(state => state.log);
 
-  console.log(logs, loading);
-
   useEffect(() => {
     dispatch(getLogs());
 

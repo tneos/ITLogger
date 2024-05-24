@@ -8,16 +8,11 @@ dotenv.config({path: "./.env"});
 
 app.use(express.json({extended: false}));
 
-// data from req object is added to it(middleware)
 app.use(express.json());
 
 mongoose.connect(process.env.DATABASE).then(() => console.log("DB connection successful!"));
 
 const PORT = process.env.PORT || 5000;
-
-app.get("/", (req, res) => {
-  res.status(200).send("Testing server..");
-});
 
 // Define Routes
 app.use("/logs", require("./src/routes/logs"));

@@ -4,7 +4,7 @@ const {check, validationResult} = require("express-validator");
 
 const Log = require("../models/Logs");
 
-// @desc    Get all logs
+// @desc    Get all logs or logs that match query
 router.get("/", async (req, res) => {
   const query = req.query.q;
   let logsData;
@@ -72,29 +72,7 @@ router.post(
 );
 
 // @desc    Update log
-
 router.put("/:id", async (req, res) => {
-  console.log(req.params.id, req.body);
-  const doc = await Log.findByIdAndUpdate({_id: req.params.id}, req.body, {
-    new: true,
-  });
-
-  if (!doc) {
-    return next(new AppError("No document found with that ID", 404)); // return function immediately before it moves to next one
-  }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      data: doc,
-    },
-  });
-});
-
-// @desc    Search log
-
-router.get("/", async (req, res) => {
-  console.log(req.query);
   const doc = await Log.findByIdAndUpdate({_id: req.params.id}, req.body, {
     new: true,
   });
@@ -112,12 +90,10 @@ router.get("/", async (req, res) => {
 });
 
 // @desc    Delete log
-
 router.delete("/:id", async (req, res) => {
   const logId = req.params.id;
 
   const deletedLog = await Log.findOneAndDelete({_id: logId});
-  console.log(deletedLog, logId);
 
   if (!deletedLog) {
     return next(new AppError("No log found with that ID", 404));

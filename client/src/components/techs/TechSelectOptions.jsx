@@ -10,6 +10,7 @@ const TechSelectOptions = () => {
     dispatch(getTechs());
     // eslint-disable-next-line
   }, []);
+
   return (
     !loading &&
     techs.length > 0 &&

@@ -8,7 +8,6 @@ const SearchBar = () => {
 
   // Search action
   const onChange = e => {
-    console.log(text.current.value);
     dispatch(searchLogs(text.current.value));
   };
 

@@ -53,7 +53,6 @@ router.post(
 );
 
 // @desc    Delete log
-
 router.delete("/:id", async (req, res) => {
   const logId = req.params.id;
 

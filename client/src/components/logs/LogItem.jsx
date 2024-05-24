@@ -9,7 +9,6 @@ const LogItem = ({log}) => {
   const dispatch = useDispatch();
 
   const onDelete = () => {
-    console.log(log.id);
     dispatch(deleteLog(log._id));
     M.toast({html: "Log Deleted"});
   };

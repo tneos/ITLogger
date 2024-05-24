@@ -31,7 +31,7 @@ const EditLogModal = () => {
         tech,
         date: new Date(),
       };
-      console.log(updLog);
+
       dispatch(updateLog(updLog));
       M.toast({html: `Log updated by ${tech}`});
     }
