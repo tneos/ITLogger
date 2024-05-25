@@ -42,7 +42,7 @@ const AddLogModal = () => {
           <div className="input-field">
             <input
               type="text"
-              name="message"
+              id="message"
               value={message}
               onChange={e => setMessage(e.target.value)}
             />
@@ -74,6 +74,7 @@ const AddLogModal = () => {
               <label>
                 <input
                   type="checkbox"
+                  name="checkbox"
                   className="filled-in"
                   checked={attention}
                   value={attention}

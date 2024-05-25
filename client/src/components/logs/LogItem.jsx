@@ -18,20 +18,28 @@ const LogItem = ({log}) => {
       <div>
         <a
           href="#edit-log-modal"
-          className={`modal-trigger ${log.attention ? "red-text" : "blue-text"}`}
+          className={`modal-trigger ${
+            log.attention ? "red-text item-text" : "blue-text item-text"
+          }`}
           onClick={() => dispatch(setCurrent(log))}
         >
           {log.message}
         </a>
         <br />
-        <span className="grey-text">
-          <span className="black-text">ID #{log.id}</span> last updated by{" "}
-          <span className="black-text">{log.tech}</span> on{" "}
-          <Moment format="MMMM Do YYYY HH:mm">{log.date}</Moment>
-        </span>
-        <a href="#" onClick={onDelete} className="secondary-content">
-          <i className="material-icons grey-text">delete</i>
-        </a>
+        <div className="item-container">
+          <span className="grey-text info">
+            <span className="black-text item-text">ID #{log.id}</span>{" "}
+            <span className="item-text">last updated by </span>
+            <span className="black-text item-text">{log.tech}</span>
+            <span className="item-text"> on </span>
+            <Moment format="MMMM Do YYYY HH:mm" className="item-text">
+              {log.date}
+            </Moment>
+          </span>
+          <a href="#" onClick={onDelete} className="secondary-content">
+            <i className="material-icons grey-text delete-icon">delete</i>
+          </a>
+        </div>
       </div>
     </li>
   );

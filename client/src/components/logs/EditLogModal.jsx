@@ -83,6 +83,7 @@ const EditLogModal = () => {
                 <input
                   type="checkbox"
                   className="filled-in"
+                  name="checkbox"
                   checked={attention}
                   value={attention}
                   onChange={e => setAttention(!attention)}
