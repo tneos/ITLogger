@@ -10,7 +10,7 @@ app.use(express.json({extended: false}));
 
 app.use(express.json());
 
-mongoose.connect(process.env.DATABASE).then(() => console.log("DB connection successful!"));
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log("DB connection successful!"));
 
 const PORT = process.env.PORT || 5000;
 
