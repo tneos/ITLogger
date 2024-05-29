@@ -9,7 +9,10 @@ const initialState = {
 
 // Get logs from server
 export const getLogs = createAsyncThunk("logs/getLogs", async () => {
-  const response = await fetch("/logs");
+  const response =
+    process.env.REACT_APP_ENV !== "production"
+      ? await fetch("/logs")
+      : await fetch(`${process.env.REACT_APP_BACKEND_URL}/logs`);
   const jsonData = await response.json();
 
   return jsonData;
@@ -17,13 +20,22 @@ export const getLogs = createAsyncThunk("logs/getLogs", async () => {
 
 // Add new log
 export const addLog = createAsyncThunk("logs/addLog", async log => {
-  const response = await fetch("/logs", {
-    method: "POST",
-    body: JSON.stringify(log),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response =
+    process.env.REACT_APP_ENV !== "production"
+      ? await fetch("/logs", {
+          method: "POST",
+          body: JSON.stringify(log),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+      : await fetch(`${process.env.REACT_APP_BACKEND_URL}/logs`, {
+          method: "POST",
+          body: JSON.stringify(log),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
   const jsonData = await response.json();
 
   return jsonData;
@@ -31,23 +43,35 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
 
 // Delete log
 export const deleteLog = createAsyncThunk("logs/deleteLog", async id => {
-  await fetch(`/logs/${id}`, {
-    method: "DELETE",
-  });
+  process.env.REACT_APP_ENV !== "production"
+    ? await fetch(`/logs/${id}`, {
+        method: "DELETE",
+      })
+    : await fetch(`${process.env.REACT_APP_BACKEND_URL}/logs/${id}`, {
+        method: "DELETE",
+      });
 
   return id;
 });
 
 // Update log on server
 export const updateLog = createAsyncThunk("logs/updateLog", async log => {
-  console.log(log._id);
-  const response = await fetch(`/logs/${log._id}`, {
-    method: "PUT",
-    body: JSON.stringify(log),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response =
+    process.env.REACT_APP_ENV !== "production"
+      ? await fetch(`/logs/${log._id}`, {
+          method: "PUT",
+          body: JSON.stringify(log),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+      : await fetch(`${process.env.REACT_APP_BACKEND_URL}/logs/${log._id}`, {
+          method: "PUT",
+          body: JSON.stringify(log),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
 
   const jsonData = await response.json();
 
@@ -56,7 +80,10 @@ export const updateLog = createAsyncThunk("logs/updateLog", async log => {
 
 // Search logs
 export const searchLogs = createAsyncThunk("logs/searchLogs", async text => {
-  const response = await fetch(`/logs?q=${text}`);
+  const response =
+    process.env.REACT_APP_ENV !== "production"
+      ? await fetch(`/logs?q=${text}`)
+      : await fetch(`${process.env.REACT_APP_BACKEND_URL}/logs?q=${text}`);
   const jsonData = await response.json();
   return jsonData;
 });
