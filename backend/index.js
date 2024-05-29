@@ -14,7 +14,7 @@ app.use(express.json());
 mongoose.connect(process.env.MONGODB_URI).then(() => console.log("DB connection successful.."));
 
 if (process.env.MODE !== "development") {
-  app.use("/", express.static(path.join(__dirname, "dist")));
+  app.get("/*", (req, res) => res.sendFile(path.join(__dirname, "../client/dist/index.html")));
 }
 const PORT = process.env.PORT || 5000;
 
