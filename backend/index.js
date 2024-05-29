@@ -10,8 +10,11 @@ app.use(express.json({extended: false}));
 
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI).then(() => console.log("DB connection successful??"));
+mongoose.connect(process.env.MONGODB_URI).then(() => console.log("DB connection successful.."));
 
+if (process.env.MODE !== "development") {
+  app.use("/", express.static(path.join(__dirname, "dist")));
+}
 const PORT = process.env.PORT || 5000;
 
 // Define Routes
