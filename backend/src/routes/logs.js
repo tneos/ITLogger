@@ -6,6 +6,7 @@ const Log = require("../models/Logs");
 
 // @desc    Get all logs or logs that match query
 router.get("/", async (req, res) => {
+  console.log("Testing logs..");
   const query = req.query.q;
   let logsData;
 
