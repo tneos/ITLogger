@@ -10,7 +10,7 @@ const initialState = {
 export const getTechs = createAsyncThunk("techs/getTechs", async () => {
   const hostEndPoint = "https://itlogger-backend-api.onrender.com";
   const response =
-    process.env.MODE !== "production"
+    import.meta.env.MODE !== "production"
       ? await fetch("/techs")
       : await fetch(`${hostEndPoint}/techs`);
   const jsonData = await response.json();
@@ -20,7 +20,7 @@ export const getTechs = createAsyncThunk("techs/getTechs", async () => {
 // Add new technician to server
 export const addTech = createAsyncThunk("techs/addTech", async tech => {
   const response =
-    process.env.MODE !== "production"
+    import.meta.env.MODE !== "production"
       ? await fetch("/techs", {
           method: "POST",
           body: JSON.stringify(tech),
@@ -41,7 +41,7 @@ export const addTech = createAsyncThunk("techs/addTech", async tech => {
 
 // Delete technician from server
 export const deleteTech = createAsyncThunk("techs/deleteTech", async id => {
-  process.env.MODE !== "production"
+  import.meta.env.MODE !== "production"
     ? await fetch(`/techs/${id}`, {
         method: "DELETE",
       })

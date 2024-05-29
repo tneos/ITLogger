@@ -6,7 +6,6 @@ const Log = require("../models/Logs");
 
 // @desc    Get all logs or logs that match query
 router.get("/", async (req, res) => {
-  console.log("Testing logs..");
   const query = req.query.q;
   let logsData;
 
@@ -23,7 +22,6 @@ router.get("/", async (req, res) => {
     } else {
       logsData = await Log.find({});
     }
-    console.log(logsData);
 
     res.json({
       status: "success",

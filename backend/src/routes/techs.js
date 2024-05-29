@@ -9,6 +9,7 @@ router.get("/", async (req, res) => {
   try {
     // Get all logs
     let techsData = await Tech.find({});
+    console.log(techsData);
 
     res.json({
       status: "success",
