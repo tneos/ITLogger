@@ -34,7 +34,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
             "Content-Type": "application/json",
           },
         })
-      : await fetch(hostEndPoint, {
+      : await fetch("https://itlogger-backend-api.onrender.com/logs", {
           method: "POST",
           body: JSON.stringify(log),
           headers: {
