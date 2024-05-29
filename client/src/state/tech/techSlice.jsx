@@ -8,10 +8,11 @@ const initialState = {
 
 // Get techs from server
 export const getTechs = createAsyncThunk("techs/getTechs", async () => {
+  const hostEndPoint = import.meta.env.BASE_URL;
   const response =
-    process.env.REACT_APP_ENV !== "production"
+    process.env.MODE !== "production"
       ? await fetch("/techs")
-      : await fetch(`${process.env.REACT_APP_BACKEND_URL}/techs`);
+      : await fetch(`${hostEndPoint}/techs`);
   const jsonData = await response.json();
   return jsonData;
 });
@@ -19,7 +20,7 @@ export const getTechs = createAsyncThunk("techs/getTechs", async () => {
 // Add new technician to server
 export const addTech = createAsyncThunk("techs/addTech", async tech => {
   const response =
-    process.env.REACT_APP_ENV !== "production"
+    process.env.MODE !== "production"
       ? await fetch("/techs", {
           method: "POST",
           body: JSON.stringify(tech),
@@ -27,7 +28,7 @@ export const addTech = createAsyncThunk("techs/addTech", async tech => {
             "Content-Type": "application/json",
           },
         })
-      : await fetch(`${process.env.REACT_APP_BACKEND_URL}/techs`, {
+      : await fetch(`${hostEndPoint}/techs`, {
           method: "POST",
           body: JSON.stringify(tech),
           headers: {
@@ -40,11 +41,11 @@ export const addTech = createAsyncThunk("techs/addTech", async tech => {
 
 // Delete technician from server
 export const deleteTech = createAsyncThunk("techs/deleteTech", async id => {
-  process.env.REACT_APP_ENV !== "production"
+  process.env.MODE !== "production"
     ? await fetch(`/techs/${id}`, {
         method: "DELETE",
       })
-    : await fetch(`${process.env.REACT_APP_BACKEND_URL}/techs/${id}`, {
+    : await fetch(`${hostEndPoint}/techs/${id}`, {
         method: "DELETE",
       });
 
