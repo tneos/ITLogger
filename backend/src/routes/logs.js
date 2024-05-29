@@ -22,6 +22,7 @@ router.get("/", async (req, res) => {
     } else {
       logsData = await Log.find({});
     }
+    console.log(logsData);
 
     res.json({
       status: "success",
