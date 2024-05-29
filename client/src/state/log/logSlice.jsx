@@ -11,7 +11,7 @@ const initialState = {
 export const getLogs = createAsyncThunk("logs/getLogs", async () => {
   const hostEndPoint = "https://itlogger-backend-api.onrender.com";
   const hostUrl = `${hostEndPoint}/logs`;
-  console.log(hostUrl);
+  console.log(hostUrl, import.meta.env.MODE);
 
   const response =
     import.meta.env.MODE === "development"
