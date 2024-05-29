@@ -24,7 +24,7 @@ export const getLogs = createAsyncThunk("logs/getLogs", async () => {
 // Add new log
 export const addLog = createAsyncThunk("logs/addLog", async log => {
   const response =
-    import.meta.env.MODE !== "production"
+    import.meta.env.MODE === "development"
       ? await fetch("/logs", {
           method: "POST",
           body: JSON.stringify(log),
@@ -46,7 +46,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
 
 // Delete log
 export const deleteLog = createAsyncThunk("logs/deleteLog", async id => {
-  import.meta.env.MODE !== "production"
+  import.meta.env.MODE === "development"
     ? await fetch(`/logs/${id}`, {
         method: "DELETE",
       })
@@ -60,7 +60,7 @@ export const deleteLog = createAsyncThunk("logs/deleteLog", async id => {
 // Update log on server
 export const updateLog = createAsyncThunk("logs/updateLog", async log => {
   const response =
-    import.meta.env.MODE !== "production"
+    import.meta.env.MODE === "development"
       ? await fetch(`/logs/${log._id}`, {
           method: "PUT",
           body: JSON.stringify(log),
@@ -84,7 +84,7 @@ export const updateLog = createAsyncThunk("logs/updateLog", async log => {
 // Search logs
 export const searchLogs = createAsyncThunk("logs/searchLogs", async text => {
   const response =
-    import.meta.env.MODE !== "production"
+    import.meta.env.MODE === "development"
       ? await fetch(`/logs?q=${text}`)
       : await fetch(`${hostEndPoint}/logs?q=${text}`);
   const jsonData = await response.json();
