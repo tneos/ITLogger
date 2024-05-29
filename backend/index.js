@@ -11,7 +11,7 @@ const path = require("path");
 // };
 
 const app = express();
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 dotenv.config({path: "./.env"});
 
