@@ -34,7 +34,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
             "Content-Type": "application/json",
           },
         })
-      : await fetch(`${hostUrl}`, {
+      : await fetch(hostEndPoint, {
           method: "POST",
           body: JSON.stringify(log),
           headers: {
