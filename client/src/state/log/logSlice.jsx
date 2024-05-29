@@ -40,6 +40,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
           },
         });
   const jsonData = await response.json();
+  console.log(jsonData);
 
   return jsonData;
 });
