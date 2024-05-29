@@ -8,7 +8,7 @@ const initialState = {
 
 // Get techs from server
 export const getTechs = createAsyncThunk("techs/getTechs", async () => {
-  const hostEndPoint = import.meta.env.BASE_URL;
+  const hostEndPoint = "https://itlogger-backend-api.onrender.com";
   const response =
     process.env.MODE !== "production"
       ? await fetch("/techs")
