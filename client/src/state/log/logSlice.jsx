@@ -23,29 +23,29 @@ export const getLogs = createAsyncThunk("logs/getLogs", async () => {
 
 // Add new log
 export const addLog = createAsyncThunk("logs/addLog", async log => {
-  // const response =
-  //   import.meta.env.MODE === "development"
-  //     ? await fetch("/logs", {
-  //         method: "POST",
-  //         body: JSON.stringify(log),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       })
-  //     : await fetch(`${hostEndPoint}/logs`, {
-  //         method: "POST",
-  //         body: JSON.stringify(log),
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       });
-  const response = await fetch("https://itlogger-backend-api.onrender.com/logs", {
-    method: "POST",
-    body: JSON.stringify(log),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response =
+    import.meta.env.MODE === "development"
+      ? await fetch("/logs", {
+          method: "POST",
+          body: JSON.stringify(log),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+      : await fetch(`${hostEndPoint}` + "/logs", {
+          method: "POST",
+          body: JSON.stringify(log),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+  // const response = await fetch("https://itlogger-backend-api.onrender.com/logs", {
+  //   method: "POST",
+  //   body: JSON.stringify(log),
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  //});
   const jsonData = await response.json();
   console.log(jsonData);
 
