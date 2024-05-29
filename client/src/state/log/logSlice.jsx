@@ -9,8 +9,8 @@ const initialState = {
 
 // Get logs from server
 export const getLogs = createAsyncThunk("logs/getLogs", async () => {
-  const hostEndPoint = import.meta.env.BASE_URL;
-  console.log(import.meta.env);
+  const hostEndPoint = import.meta.env.VITE_BACKEND;
+  console.log(import.meta.env, hostEndPoint);
   const response =
     import.meta.env.MODE === "development"
       ? await fetch("/logs")
