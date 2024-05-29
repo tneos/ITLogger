@@ -10,6 +10,8 @@ const initialState = {
 // Get logs from server
 export const getLogs = createAsyncThunk("logs/getLogs", async () => {
   const hostEndPoint = "https://itlogger-backend-api.onrender.com";
+  const hostUrl = `${hostEndPoint}/logs`;
+  console.log(hostUrl);
 
   const response =
     import.meta.env.MODE === "development"
@@ -32,7 +34,7 @@ export const addLog = createAsyncThunk("logs/addLog", async log => {
             "Content-Type": "application/json",
           },
         })
-      : await fetch(`${hostEndPoint}` + "/logs", {
+      : await fetch(`${hostEndPoint}/logs`, {
           method: "POST",
           body: JSON.stringify(log),
           headers: {
