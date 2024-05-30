@@ -55,9 +55,9 @@ router.post(
         tech,
         date,
       });
-      console.log(log);
 
       await log.save();
+
       res.json({
         id,
         message,

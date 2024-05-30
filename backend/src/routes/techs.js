@@ -7,9 +7,8 @@ const Tech = require("../models/Techs");
 // @desc    Get all techs
 router.get("/", async (req, res) => {
   try {
-    // Get all logs
+    // Get all techs
     let techsData = await Tech.find({});
-    console.log(techsData);
 
     res.json({
       status: "success",
@@ -36,16 +35,13 @@ router.post(
     const {firstName, lastName} = req.body;
 
     try {
-      let log = new Tech({
+      let tech = new Tech({
         firstName,
         lastName,
       });
 
-      await log.save();
-      res.json({
-        firstName,
-        lastName,
-      });
+      await tech.save();
+      res.json(tech);
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server error");

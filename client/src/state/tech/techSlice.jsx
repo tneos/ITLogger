@@ -15,7 +15,9 @@ export const getTechs = createAsyncThunk("techs/getTechs", async () => {
     import.meta.env.MODE !== "production"
       ? await fetch("/techs")
       : await fetch(`${hostEndPoint}/techs`);
+
   const jsonData = await response.json();
+
   return jsonData;
 });
 
@@ -23,9 +25,11 @@ export const getTechs = createAsyncThunk("techs/getTechs", async () => {
 export const addTech = createAsyncThunk("techs/addTech", async tech => {
   const response =
     import.meta.env.MODE === "development"
-      ? fetchData("/techs", "POST", tech)
-      : fetchData(`${hostEndPoint}/techs`, "POST", tech);
+      ? await fetchData("/techs", "POST", tech)
+      : await fetchData(`${hostEndPoint}/techs`, "POST", tech);
+
   const jsonData = await response.json();
+
   return jsonData;
 });
 
@@ -60,7 +64,11 @@ export const techSlice = createSlice({
         state.error = action.error.statusText;
       });
     builder
+      .addCase(addTech.pending, state => {
+        state.loading = true;
+      })
       .addCase(addTech.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.loading = false;
         state.techs.push(action.payload);
       })

@@ -21,7 +21,7 @@ app.use(express.json());
 
 // Define Routes
 app.use("/logs", require("./src/routes/logs"));
-app.use(`/techs`, require("./src/routes/techs"));
+app.use("/techs", require("./src/routes/techs"));
 
 mongoose.connect(process.env.MONGODB_URI).then(() => console.log("DB connection successful.."));
 
