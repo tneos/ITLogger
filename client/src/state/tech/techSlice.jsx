@@ -1,4 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {fetchData} from "../../utils/fetchData";
 
 const initialState = {
   techs: "",
@@ -21,21 +22,9 @@ export const getTechs = createAsyncThunk("techs/getTechs", async () => {
 // Add new technician to server
 export const addTech = createAsyncThunk("techs/addTech", async tech => {
   const response =
-    import.meta.env.MODE !== "production"
-      ? await fetch("/techs", {
-          method: "POST",
-          body: JSON.stringify(tech),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-      : await fetch(`${hostEndPoint}/techs`, {
-          method: "POST",
-          body: JSON.stringify(tech),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+    import.meta.env.MODE === "development"
+      ? fetchData("/techs", "POST", tech)
+      : fetchData(`${hostEndPoint}/techs`, "POST", tech);
   const jsonData = await response.json();
   return jsonData;
 });

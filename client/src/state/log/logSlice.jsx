@@ -1,4 +1,5 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {fetchData} from "../../utils/fetchData";
 
 const initialState = {
   logs: "",
@@ -28,20 +29,8 @@ export const getLogs = createAsyncThunk("logs/getLogs", async () => {
 export const addLog = createAsyncThunk("logs/addLog", async log => {
   const response =
     import.meta.env.MODE === "development"
-      ? await fetch("/logs", {
-          method: "POST",
-          body: JSON.stringify(log),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-      : await fetch(`${hostEndPoint}/logs`, {
-          method: "POST",
-          body: JSON.stringify(log),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      ? await fetchData("/logs", "POST", log)
+      : await fetchData(`${hostEndPoint}/logs`, "POST", log);
 
   const jsonData = await response.json();
   console.log(jsonData);
@@ -66,20 +55,8 @@ export const deleteLog = createAsyncThunk("logs/deleteLog", async id => {
 export const updateLog = createAsyncThunk("logs/updateLog", async log => {
   const response =
     import.meta.env.MODE === "development"
-      ? await fetch(`/logs/${log._id}`, {
-          method: "PUT",
-          body: JSON.stringify(log),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-      : await fetch(`${hostEndPoint}/logs/${log._id}`, {
-          method: "PUT",
-          body: JSON.stringify(log),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+      ? await fetchData(`/logs/${log._id}`, "PUT", log)
+      : await fetchData(`${hostEndPoint}/logs/${log._id}`, "PUT", log);
 
   const jsonData = await response.json();
 
